@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -32,7 +33,11 @@ public class EmployeesService {
         employeeRepository.save(employee);
     }
 
-    public void delete(Employees employee){
-        employeeRepository.delete(employee);
+    public Optional<Employees> findEmployee(Long id) {
+        return employeeRepository.findById(id);
+    }
+
+    public void deleteEmployee(Long id) {
+        employeeRepository.deleteById(id);
     }
 }

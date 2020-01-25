@@ -28,6 +28,7 @@ public class Employees implements Serializable {
     public Employees(String first_name, String last_name) {
     }
 
+
     @Id
     @Column(name = "EMPLOYEE_ID", nullable = false, precision = 0)
     public Long getEmployeeId() {

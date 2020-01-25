@@ -18,7 +18,7 @@ public class SampleRestController {
     public String hello(){
         return "Hello World!!!";
     }
-    @GetMapping("/all-employees")
+/*    @GetMapping("/all-employees")
     public String allEmployees(){
         return employeesService.findAll().toString();
     }
@@ -28,5 +28,5 @@ public class SampleRestController {
         Employees employee = new Employees(first_name,last_name);
         employeesService.save(employee);
         return "Task saved!";
-    }
+    }*/
 }
