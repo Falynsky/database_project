@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.Collection;
+import java.util.Date;
 
 @Entity
 public class Employees implements Serializable {
@@ -12,7 +13,7 @@ public class Employees implements Serializable {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private Time hireDate;
+    private Date hireDate;
     private Long salary;
     private Long commissionPct;
     private Collection<Departments> departmentsByEmployeeId;
@@ -81,11 +82,11 @@ public class Employees implements Serializable {
 
     @Basic
     @Column(name = "HIRE_DATE", nullable = false)
-    public Time getHireDate() {
+    public Date getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(Time hireDate) {
+    public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
     }
 

@@ -3,17 +3,9 @@
 
     <persistence-unit name="NewPersistenceUnit">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>falynsky.database_project.repository.Countries</class>
-        <class>falynsky.database_project.repository.Departments</class>
-        <class>falynsky.database_project.repository.Employees</class>
-        <class>falynsky.database_project.repository.EmployeeSalary</class>
-        <class>falynsky.database_project.repository.Jobs</class>
-        <class>falynsky.database_project.repository.JobHistory</class>
-        <class>falynsky.database_project.repository.Locations</class>
-        <class>falynsky.database_project.repository.Regions</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:oracle:thin:@155.158.112.45:1521:oltpstud"/>
-            <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
+            <property name="hibernate.connection.url" value=""/>
+            <property name="hibernate.connection.driver_class" value=""/>
             <property name="hibernate.connection.username" value=""/>
             <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.archive.autodetection" value="class"/>
