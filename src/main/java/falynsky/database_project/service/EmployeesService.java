@@ -29,10 +29,14 @@ public class EmployeesService {
         return employees;
     }
 
+
     public void save(Employees employee){
         employeeRepository.save(employee);
     }
 
+    public Employees findEmployeeById(Long id){
+        return findEmployee(id).get();
+    }
     public Optional<Employees> findEmployee(Long id) {
         return employeeRepository.findById(id);
     }

@@ -1,7 +1,9 @@
 package falynsky.database_project.controller;
 
 import falynsky.database_project.repository.Employees;
+import falynsky.database_project.service.DepartmentService;
 import falynsky.database_project.service.EmployeesService;
+import falynsky.database_project.service.JobsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -11,12 +13,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Controller
 public class MainController {
 
     @Autowired
     private EmployeesService employeesService;
+
+    @Autowired
+    private JobsService jobsService;
+
+    @Autowired
+    private DepartmentService departmentService;
 
     @GetMapping("/")
     public String home(HttpServletRequest request) {
@@ -38,7 +50,11 @@ public class MainController {
     }
 
     @PostMapping("/save-employee")
-    public String saveEmployee(@ModelAttribute Employees employee, BindingResult bindingResult, HttpServletRequest request) {
+    public String saveEmployee(@ModelAttribute Employees employee, @ModelAttribute String jobsId, @ModelAttribute long departmentId, @ModelAttribute Long managerId, HttpServletRequest request) {
+        employee.setJobsByJobId(jobsService.findJob(jobsId).get());
+        employee.setDepartmentsByDepartmentId(departmentService.findDepartmentById(departmentId));
+        employee.setEmployeesByManagerId(employeesService.findEmployeeById(managerId));
+        employee.setHireDate(new Date());
         employeesService.save(employee);
         request.setAttribute("employee", employeesService.findAll());
         request.setAttribute("mode","MODE_EMPLOYEES");
@@ -54,7 +70,7 @@ public class MainController {
     @GetMapping("/delete-employee")
     public String deleteEmployee(@RequestParam Long id, HttpServletRequest request) {
         employeesService.deleteEmployee(id);
-        request.setAttribute("employee", employeesService.findAll());
+        request.setAttribute("employees",employeesService.findAll());
         request.setAttribute("mode","MODE_EMPLOYEES");
         return "index";
     }

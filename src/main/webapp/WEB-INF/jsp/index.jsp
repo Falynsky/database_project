@@ -55,6 +55,7 @@
                         <th> Phone Number</th>
                         <th> Job Id</th>
                         <th> Salary</th>
+                        <th> HireDate</th>
                         <th> Department Id</th>
                         <th> Manager Id</th>
                         <th></th>
@@ -70,6 +71,7 @@
                             <td>${employee.phoneNumber}</td>
                             <td>${employee.jobsByJobId.jobId}</td>
                             <td>${employee.salary}</td>
+                            <td>${employee.hireDate}</td>
                             <td>${employee.departmentsByDepartmentId.departmentId}</td>
                             <td>${employee.employeesByManagerId.employeeId}</td>
                             <td><a href="delete-employee?id=${employee.employeeId}"><span
@@ -80,7 +82,6 @@
                 </table>
             </div>
         </div>
-        ;=jtrf
     </c:when>
     <c:when test="${mode == 'MODE_NEW' || mode == 'MODE_UPDATE'}">
         <div class="container text-center">
@@ -122,7 +123,7 @@
                     <label class="control-label col-md-3">Job Id</label>
                     <div class="col-md-7">
                         <input type="text" class="form-control" name="jobId"
-                               value="${employee.jobsByJobId.jobJd}"/>
+                               value="${jobsId}"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -134,15 +135,15 @@
                 <div class="form-group">
                     <label class="control-label col-md-3">Department Id</label>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" name="departmentId"
-                               value="${employee.departmentsByDepartmentId.departmentId}"/>
+                        <input type="number" class="form-control" name="departmentId"
+                               value="${departmentId}"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3">Manager Id</label>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" name="managerId"
-                               value="${employee.employeesByManagerId.employeeId}"/>
+                        <input type="number" class="form-control" name="managerId"
+                               value="${managerId}"/>
                     </div>
                 </div>
                 <div class="pull-right">
