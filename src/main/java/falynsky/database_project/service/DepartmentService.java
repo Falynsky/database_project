@@ -5,6 +5,8 @@ import falynsky.database_project.repository.DepartmentsRepository;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,11 +19,27 @@ public class DepartmentService {
         this.departmentsRepository = departmentsRepository;
     }
 
+    public List<Departments> findAll() {
+        List<Departments> departments = new ArrayList<>();
+        for (Departments department : departmentsRepository.findAll()) {
+            departments.add(department);
+        }
+        return departments;
+    }
+
+    public void save(Departments department) {
+        departmentsRepository.save(department);
+    }
+
     public Departments findDepartmentById(String id){
         Long longId = Long.valueOf(id);
         return findDepartment(longId).get();
     }
-    private Optional<Departments> findDepartment(Long id) {
+    public Optional<Departments> findDepartment(Long id) {
         return departmentsRepository.findById(id);
+    }
+
+    public void deleteDepartment(Long id) {
+        departmentsRepository.deleteById(id);
     }
 }

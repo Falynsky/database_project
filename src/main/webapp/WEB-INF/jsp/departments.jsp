@@ -19,21 +19,24 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Employees<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Employees<span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="new-employee">Add Employee</a></li>
                         <li><a href="all-employees">All Employees</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Jobs<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">Jobs<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="new-job">Add Job</a></li>
                         <li><a href="all-jobs">All Jobs</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Departments<span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Departments<span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="new-department">Add Department</a></li>
                         <li><a href="all-departments">All Departments</a></li>
@@ -51,31 +54,31 @@
             </div>
         </div>
     </c:when>
-    <c:when test="${mode == 'MODE_EMPLOYEES'}">
-        <div class="container text-center" id="jobsDiv">
-            <h3>Jobs list</h3>
+    <c:when test="${mode == 'MODE_DEPARTMENTS'}">
+        <div class="container text-center" id="departmentsDiv">
+            <h3>Departments list</h3>
             <hr>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered text-left">
                     <thead>
                     <tr>
-                        <th> Id</th>
-                        <th> Title</th>
-                        <th> Min. salary</th>
-                        <th> Max. salary</th>
+                        <th> Department Id</th>
+                        <th> Department name</th>
+                        <th> Manager id</th>
+                        <th> Location id</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="job" items="${jobs}">
+                    <c:forEach var="department" items="${departments}">
                         <tr>
-                            <td>${job.jobId}</td>
-                            <td>${job.jobTitle}</td>
-                            <td>${job.minSalary}</td>
-                            <td>${job.maxSalary}</td>
-                            <td><a href="delete-job?id=${job.jobId}"><span
+                            <td>${department.departmentId}</td>
+                            <td>${department.departmentName}</td>
+                            <td>${department.employeesByManagerId.employeeId}</td>
+                            <td>${department.locationsByLocationId.locationId}</td>
+                            <td><a href="delete-department?id=${department.departmentId}"><span
                                     class="glyphicon glyphicon-trash"></span></a><a/>
-                                <a href="update-job?id=${job.jobId}"><span
+                                <a href="update-department?id=${department.departmentId}"><span
                                         class="glyphicon glyphicon-pencil"></span></a></td>
                         </tr>
                     </c:forEach>
@@ -86,31 +89,36 @@
     </c:when>
     <c:when test="${mode == 'MODE_NEW' || mode == 'MODE_UPDATE'}">
         <div class="container text-center">
-            <h3>Manage jobs</h3>
+            <h3>Manage department</h3>
             <hr>
-            <form class="form-horizontal" method="POST" action="save-job">
+            <form class="form-horizontal" method="POST" action="save-department">
                 <div class="form-group">
-                    <label class="control-label col-md-3">Job Id</label>
+                    <label class="control-label col-md-3">Id
+                    </label>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" name="jobId" value="${job.jobId}"/>
+                        <input type="number" class="form-control" name="departmentId"
+                               value="${department.departmentId}"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3">Title</label>
+                    <label class="control-label col-md-3">Department Name</label>
                     <div class="col-md-7">
-                        <input type="text" class="form-control" name="jobTitle" value="${job.jobTitle}"/>
+                        <input type="text" class="form-control" name="departmentName"
+                               value="${department.departmentName}"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3">Min salary</label>
+                    <label class="control-label col-md-3">Manager id</label>
                     <div class="col-md-7">
-                        <input type="number" class="form-control" name="minSalary" value="${job.minSalary}"/>
+                        <input type="number" class="form-control" name="managerId"
+                               value="${department.employeesByManagerId.employeeId}"/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3">Max salary</label>
+                    <label class="control-label col-md-3">Location Id</label>
                     <div class="col-md-7">
-                        <input type="number" class="form-control" name="maxSalary" value="${job.maxSalary}"/>
+                        <input type="number" class="form-control" name="locationId"
+                               value="${department.locationsByLocationId.locationId}"/>
                     </div>
                 </div>
                 <div class="pull-right">

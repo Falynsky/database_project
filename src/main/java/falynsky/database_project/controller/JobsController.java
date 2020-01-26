@@ -38,7 +38,7 @@ public class JobsController {
     public String saveEmployee(@ModelAttribute Jobs job, HttpServletRequest request) {
         jobsService.save(job);
         request.setAttribute("mode","MODE_ADDED");
-        return "jobs";
+        return "index";
     }
 
     @GetMapping("/update-job")
