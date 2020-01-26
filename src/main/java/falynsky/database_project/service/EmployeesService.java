@@ -21,23 +21,23 @@ public class EmployeesService {
         this.employeeRepository = employeeRepository;
     }
 
-    public List<Employees> findAll(){
+    public List<Employees> findAll() {
         List<Employees> employees = new ArrayList<>();
-        for(Employees employee: employeeRepository.findAll()){
+        for (Employees employee : employeeRepository.findAll()) {
             employees.add(employee);
         }
         return employees;
     }
 
-
-    public void save(Employees employee){
+    public void save(Employees employee) {
         employeeRepository.save(employee);
     }
 
-    public Employees findEmployeeById(String id){
+    public Employees findEmployeeById(String id) {
         Long longId = Long.valueOf(id);
         return findEmployee(longId).get();
     }
+
     public Optional<Employees> findEmployee(Long id) {
         return employeeRepository.findById(id);
     }

@@ -6,16 +6,12 @@ import falynsky.database_project.service.EmployeesService;
 import falynsky.database_project.service.JobsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Time;
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Optional;
 
@@ -41,13 +37,13 @@ public class MainController {
     public String allEmployees(HttpServletRequest request) {
         request.setAttribute("employees",employeesService.findAll());
         request.setAttribute("mode","MODE_EMPLOYEES");
-        return "index";
+        return "employees";
     }
 
     @GetMapping("/new-employee")
     public String newEmployee(HttpServletRequest request) {
         request.setAttribute("mode","MODE_NEW");
-        return "index";
+        return "employees";
     }
 
     @PostMapping("/save-employee")
@@ -58,7 +54,7 @@ public class MainController {
         employee.setHireDate(new Date());
         employeesService.save(employee);
         request.setAttribute("mode","MODE_ADDED");
-        return "index";
+        return "employees";
     }
 
     @GetMapping("/update-employee")
@@ -66,13 +62,13 @@ public class MainController {
         Optional<Employees> employee = employeesService.findEmployee(id);
         request.setAttribute("employee", employee.get());
         request.setAttribute("mode","MODE_UPDATE");
-        return "index";
+        return "employees";
     }
     @GetMapping("/delete-employee")
     public String deleteEmployee(@RequestParam Long id, HttpServletRequest request) {
         employeesService.deleteEmployee(id);
         request.setAttribute("employees",employeesService.findAll());
         request.setAttribute("mode","MODE_EMPLOYEES");
-        return "index";
+        return "employees";
     }
 }
