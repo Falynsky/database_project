@@ -17,6 +17,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -50,20 +51,20 @@ public class MainController {
     }
 
     @PostMapping("/save-employee")
-    public String saveEmployee(@ModelAttribute Employees employee, @ModelAttribute String jobsId, @ModelAttribute long departmentId, @ModelAttribute Long managerId, HttpServletRequest request) {
-        employee.setJobsByJobId(jobsService.findJob(jobsId).get());
-        employee.setDepartmentsByDepartmentId(departmentService.findDepartmentById(departmentId));
-        employee.setEmployeesByManagerId(employeesService.findEmployeeById(managerId));
+    public String saveEmployee(@ModelAttribute Employees employee, HttpServletRequest request) {
+        employee.setJobsByJobId(jobsService.findJob(request.getParameter("jobId")).get());
+        employee.setDepartmentsByDepartmentId(departmentService.findDepartmentById(request.getParameter("departmentId")));
+        employee.setEmployeesByManagerId(employeesService.findEmployeeById(request.getParameter("managerId")));
         employee.setHireDate(new Date());
         employeesService.save(employee);
-        request.setAttribute("employee", employeesService.findAll());
-        request.setAttribute("mode","MODE_EMPLOYEES");
+        request.setAttribute("mode","MODE_ADDED");
         return "index";
     }
 
     @GetMapping("/update-employee")
     public String updateEmployee(@RequestParam Long id, HttpServletRequest request) {
-        request.setAttribute("employee", employeesService.findEmployee(id));
+        Optional<Employees> employee = employeesService.findEmployee(id);
+        request.setAttribute("employee", employee.get());
         request.setAttribute("mode","MODE_UPDATE");
         return "index";
     }

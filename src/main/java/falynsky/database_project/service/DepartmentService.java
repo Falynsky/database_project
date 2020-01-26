@@ -17,8 +17,9 @@ public class DepartmentService {
         this.departmentsRepository = departmentsRepository;
     }
 
-    public Departments findDepartmentById(Long id){
-        return findDepartment(id).get();
+    public Departments findDepartmentById(String id){
+        Long longId = Long.valueOf(id);
+        return findDepartment(longId).get();
     }
     private Optional<Departments> findDepartment(Long id) {
         return departmentsRepository.findById(id);

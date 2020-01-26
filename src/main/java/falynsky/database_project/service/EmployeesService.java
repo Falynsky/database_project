@@ -34,8 +34,9 @@ public class EmployeesService {
         employeeRepository.save(employee);
     }
 
-    public Employees findEmployeeById(Long id){
-        return findEmployee(id).get();
+    public Employees findEmployeeById(String id){
+        Long longId = Long.valueOf(id);
+        return findEmployee(longId).get();
     }
     public Optional<Employees> findEmployee(Long id) {
         return employeeRepository.findById(id);
