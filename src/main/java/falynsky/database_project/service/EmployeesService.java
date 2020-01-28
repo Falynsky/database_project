@@ -3,6 +3,7 @@ package falynsky.database_project.service;
 
 import falynsky.database_project.repository.Employees;
 import falynsky.database_project.repository.EmployeesRepository;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -33,8 +34,12 @@ public class EmployeesService {
         employeeRepository.save(employee);
     }
 
-    public Employees findEmployeeById(String id) {
+    public Employees findEmployeeById(String id) throws NotFoundException {
         Long longId = Long.valueOf(id);
+        Optional<Employees> employee = findEmployee(longId);
+        if(employee.isEmpty()) {
+            throw new NotFoundException("ERROR: EmployeeId:"+id+" not found");
+        }
         return findEmployee(longId).get();
     }
 

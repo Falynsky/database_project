@@ -2,6 +2,7 @@ package falynsky.database_project.service;
 
 import falynsky.database_project.repository.Jobs;
 import falynsky.database_project.repository.JobsRepository;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,8 +32,12 @@ public class JobsService {
         jobsRepository.save(job);
     }
 
-    public Jobs findJobById(String id) {
-        return findJob(id).get();
+    public Jobs findJobById(String id) throws NotFoundException {
+        Optional<Jobs> job = findJob(id);
+        if(job.isEmpty()){
+            throw new NotFoundException("ERROR: JobId:"+id+" not found");
+        }
+        return job.get();
     }
 
     public Optional<Jobs> findJob(String id) {

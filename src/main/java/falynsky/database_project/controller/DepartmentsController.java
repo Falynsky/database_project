@@ -38,7 +38,7 @@ public class DepartmentsController {
     }
 
     @PostMapping("/save-department")
-    public String saveEmployee(@ModelAttribute Departments department, HttpServletRequest request) {
+    public String saveEmployee(@ModelAttribute Departments department, HttpServletRequest request) throws Exception {
         department.setEmployeesByManagerId(employeesService.findEmployeeById(request.getParameter("managerId")));
         department.setLocationsByLocationId(locationsService.findLocationById(request.getParameter("locationId")));
         departmentService.save(department);

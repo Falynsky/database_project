@@ -46,7 +46,7 @@
     <c:when test="${mode == 'MODE_HOME'}">
         <div class="container" id="homeDiv">
             <div class="jumbotron text-center">
-                <h1>Welcome to Employee Manager</h1>
+                <h1>Welcome to Company Manager</h1>
             </div>
         </div>
     </c:when>

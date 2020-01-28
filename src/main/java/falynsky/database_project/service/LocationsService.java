@@ -3,6 +3,7 @@ package falynsky.database_project.service;
 import falynsky.database_project.repository.Employees;
 import falynsky.database_project.repository.Locations;
 import falynsky.database_project.repository.LocationsRepository;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -32,9 +33,13 @@ public class LocationsService {
         locationsRepository.save(location);
     }
 
-    public Locations findLocationById(String id) {
+    public Locations findLocationById(String id) throws NotFoundException {
         Long longId = Long.valueOf(id);
-        return findLocation(longId).get();
+        Optional<Locations> location = findLocation(longId);
+        if(location.isEmpty()){
+            throw new NotFoundException("ERROR: LocationId:"+id+" not found");
+        }
+        return location.get();
     }
 
     public Optional<Locations> findLocation(Long id) {

@@ -2,6 +2,7 @@ package falynsky.database_project.service;
 
 import falynsky.database_project.repository.Departments;
 import falynsky.database_project.repository.DepartmentsRepository;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -31,9 +32,13 @@ public class DepartmentService {
         departmentsRepository.save(department);
     }
 
-    public Departments findDepartmentById(String id){
+    public Departments findDepartmentById(String id) throws NotFoundException {
         Long longId = Long.valueOf(id);
-        return findDepartment(longId).get();
+        Optional<Departments> department = findDepartment(longId);
+        if(department.isEmpty()){
+            throw new NotFoundException("ERROR: DepartmentId:"+id+" not found");
+        }
+        return department.get();
     }
     public Optional<Departments> findDepartment(Long id) {
         return departmentsRepository.findById(id);

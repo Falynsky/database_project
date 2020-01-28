@@ -41,8 +41,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/save-employee")
-    public String saveEmployee(@ModelAttribute Employees employee, HttpServletRequest request) {
-        employee.setJobsByJobId(jobsService.findJob(request.getParameter("jobId")).get());
+    public String saveEmployee(@ModelAttribute Employees employee, HttpServletRequest request) throws Exception {
+        employee.setJobsByJobId(jobsService.findJobById(request.getParameter("jobId")));
         employee.setDepartmentsByDepartmentId(departmentService.findDepartmentById(request.getParameter("departmentId")));
         employee.setEmployeesByManagerId(employeesService.findEmployeeById(request.getParameter("managerId")));
         employee.setHireDate(new Date());
